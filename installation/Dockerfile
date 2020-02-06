@@ -16,7 +16,17 @@ WORKDIR /work/postgresql-12.1
 RUN apt-get install -y libssl-dev
 RUN ./configure --with-openssl
 
-RUN make
+RUN make world
 # RUN make check
-RUN make install
-RUN ls /usr/local/pgsql/bin
+RUN make install-world
+
+ENV PATH "$PATH:/usr/local/pgsql/bin"
+ENV PGDATA=/var/lib/postgresql/data
+WORKDIR /var/lib/postgresql/
+
+RUN useradd -M -d /var/lib/postgresql/ postgres
+RUN chmod 700 .
+RUN chown postgres:postgres .
+
+USER postgres
+RUN initdb
