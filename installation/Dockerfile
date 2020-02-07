@@ -14,7 +14,9 @@ RUN tar -xvzf postgresql-12.1.tar.gz
 WORKDIR /work/postgresql-12.1
 
 RUN apt-get install -y libssl-dev
-RUN ./configure --with-openssl
+RUN apt-get install -y pkg-config
+RUN apt-get install -y libicu-dev
+RUN ./configure --with-openssl --with-icu
 
 RUN make world
 # RUN make check
