@@ -29,4 +29,4 @@ RUN chmod 700 .
 RUN chown postgres:postgres .
 
 USER postgres
-RUN initdb
+RUN initdb -E UTF-8
